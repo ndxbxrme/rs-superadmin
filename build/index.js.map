@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "../src/",
+  "sources": [
+    "index.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA,MAAA;;EAAA,KAAA,GAAQ,OAAA,CAAQ,OAAR;;EACR,MAAM,CAAC,OAAP,GAAiB,QAAA,CAAC,MAAD,CAAA;WACf,QAAA,CAAC,EAAD,CAAA;aACE,EAAE,CAAC,EAAE,CAAC,EAAN,CAAS,OAAT,EAAkB,MAAA,QAAA,CAAA,CAAA;AAChB,YAAA,OAAA,EAAA,IAAA,EAAA;QAAA,IAAA,GAAO,CAAA;QACP,KAAK,CAAC,GAAN,CAAU,IAAV,EAAgB,EAAE,CAAC,MAAM,CAAC,aAA1B,EAAyC,sBAAzC;QACA,IAAA,GAAO,CAAA,MAAM,EAAE,CAAC,EAAE,CAAC,SAAN,CAAgB,EAAE,CAAC,MAAM,CAAC,SAA1B,EAAqC,IAArC,CAAN;QACP,IAAG,CAAI,IAAP;UACE,OAAA,GACE;YAAA,IAAA,EAAM,CAAC,YAAD;UAAN;UACF,KAAK,CAAC,GAAN,CAAU,OAAV,EAAmB,EAAE,CAAC,MAAM,CAAC,aAA7B,EAA4C,sBAA5C;UACA,KAAK,CAAC,GAAN,CAAU,OAAV,EAAmB,EAAE,CAAC,MAAM,CAAC,aAA7B,EAA4C,MAAM,CAAC,QAAP,CAAgB,OAAhB,EAAyB,MAAM,CAAC,WAAP,CAAmB,CAAnB,CAAzB,EAAgD,IAAhD,CAA5C;iBACA,EAAE,CAAC,EAAE,CAAC,MAAN,CAAa,EAAE,CAAC,MAAM,CAAC,SAAvB,EAAkC,OAAlC,EALF;;MAJgB,CAAlB;IADF;EADe;AADjB",
+  "sourcesContent": [
+    "dotty = require 'dotty'\r\nmodule.exports = (config) ->\r\n  (rs) ->\r\n    rs.db.on 'ready', ->\r\n      opts = {}\r\n      dotty.put opts, rs.config.userNameField, 'superadmin@admin.com'\r\n      user = await rs.db.selectOne rs.config.userTable, opts\r\n      if not user\r\n        newuser =\r\n          role: ['superadmin']\r\n        dotty.put newuser, rs.config.userNameField, 'superadmin@admin.com'\r\n        dotty.put newuser, rs.config.userPassField, bcrypt.hashSync 'admin', bcrypt.genSaltSync(8), null\r\n        rs.db.insert rs.config.userTable, newuser"
+  ]
+}
