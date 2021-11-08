@@ -21,6 +21,6 @@
     "load-grunt-tasks": "^5.1.0"
   },
   "dependencies": {
-    "dotty": "^0.1.0"
+    "dotty": "^0.1.2"
   }
 }
